@@ -113,6 +113,7 @@ func persistInbound(s Store, m packets.ControlPacket) {
 		case *packets.PublishPacket, *packets.PubrecPacket, *packets.PingrespPacket, *packets.ConnackPacket:
 		default:
 			ERROR.Println(STR, "Asked to persist an invalid messages type")
+			ERROR.Printf("qos 0: %+v, %T", m.Details(), m)
 		}
 	case 1:
 		switch m.(type) {
@@ -122,6 +123,7 @@ func persistInbound(s Store, m packets.ControlPacket) {
 			s.Put(inboundKeyFromMID(m.Details().MessageID), m)
 		default:
 			ERROR.Println(STR, "Asked to persist an invalid messages type")
+			ERROR.Printf("qos 1: %+v, %T", m.Details(), m)
 		}
 	case 2:
 		switch m.(type) {
